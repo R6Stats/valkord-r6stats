@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "description": "R6Stats Discord Bot",
   "main": "index.ts",
+  "private": true,
   "scripts": {
     "start": "ts-node index"
   },
-  "author": "",
+  "contributors": [
+    "Jake <jake@r6stats.com>"
+  ],
   "license": "ISC",
   "dependencies": {
     "@r6stats/valkord": "file:../valkord",

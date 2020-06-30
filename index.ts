@@ -1,16 +1,8 @@
-import { ValkordClient, ValkordFactory } from '@r6stats/valkord'
+import { ShardingManager } from 'discord.js'
 
-export class R6StatsClient extends ValkordClient {
-    
-}
+const manager = new ShardingManager('./bot')
 
-export const run = async () => {
-  const client = await ValkordFactory.create(R6StatsClient)
+manager.on('shardCreate', shard => console.log(`- Spawned shard ${shard.id} -`))
 
-  const modules = client.getModuleLoader()
-  modules.load('./modules/r6stats')
+manager.spawn(2)
 
-  await client.connect()
-}
-
-run()
