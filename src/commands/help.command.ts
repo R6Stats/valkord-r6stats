@@ -1,6 +1,6 @@
+import { ClientCommand, CommandContext, CommandRegistrar, EmbedField, Injectable } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
 import { LOGO_URL, PRIMARY_COLOR } from '../constants'
-import { CommandRegistrar, ClientCommand, CommandContext, EmbedField, Injectable } from '@r6stats/valkord'
 
 @Injectable()
 export class HelpCommand extends ClientCommand {

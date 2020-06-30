@@ -4,17 +4,16 @@
   "description": "Public R6Stats Module for Valkord",
   "main": "index.ts",
   "private": true,
-  "scripts": {
-    "start": "ts-node index"
-  },
   "contributors": [
     "Jake <jake@r6stats.com>"
   ],
   "license": "ISC",
   "dependencies": {
-    "@r6stats/valkord": "file:../valkord",
-    "discord.js": "^12.2.0",
-    "ts-node": "^8.10.2"
+    "@r6stats/node": "^3.0.6",
+    "@r6stats/valkord": "file:../valkord"
+  },
+  "peerDependencies": {
+    "discord.js": "^12.2.0"
   },
   "devDependencies": {
     "@types/node": "^14.0.14",

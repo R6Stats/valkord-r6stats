@@ -1,6 +1,6 @@
+import { ClientCommand, CommandContext, Injectable } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
 import { INVITE_URL, LOGO_URL, PRIMARY_COLOR } from '../constants'
-import { Injectable, ClientCommand, CommandContext } from '@r6stats/valkord'
 
 @Injectable()
 export class InviteCommand extends ClientCommand {

@@ -1,5 +1,5 @@
+import { ClientCommand, CommandContext, Injectable } from '@r6stats/valkord'
 import { Message } from 'discord.js'
-import { Injectable, CommandContext, ClientCommand } from '@r6stats/valkord'
 
 @Injectable()
 export class PingCommand extends ClientCommand {
