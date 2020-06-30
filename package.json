@@ -1,7 +1,7 @@
 {
-  "name": "discord-bot",
+  "name": "valkord-r6stats-public",
   "version": "0.0.1",
-  "description": "R6Stats Discord Bot",
+  "description": "Public R6Stats Module for Valkord",
   "main": "index.ts",
   "private": true,
   "scripts": {
