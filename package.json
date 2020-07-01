@@ -1,8 +1,8 @@
 {
-  "name": "valkord-r6stats-public",
+  "name": "@r6stats/valkord-r6stats",
   "version": "0.0.1",
   "description": "Public R6Stats Module for Valkord",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "private": true,
   "contributors": [
     "Jake <jake@r6stats.com>"
