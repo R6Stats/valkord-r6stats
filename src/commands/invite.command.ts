@@ -1,9 +1,9 @@
-import { ClientCommand, CommandContext, Injectable } from '@r6stats/valkord'
+import { ValkordCommand, CommandContext, Injectable } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
 import { INVITE_URL, LOGO_URL, PRIMARY_COLOR } from '../constants'
 
 @Injectable()
-export class InviteCommand extends ClientCommand {
+export class InviteCommand extends ValkordCommand {
   public readonly command = 'invite'
   public readonly name = 'Invite Link'
   public readonly group = 'Other'

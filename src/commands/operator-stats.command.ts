@@ -1,4 +1,4 @@
-import { ClientCommand, CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable } from '@r6stats/valkord'
+import { ValkordCommand, CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
 import { LOGO_URL, PRIMARY_COLOR } from '../constants'
 import { StatsService } from '../services/stats.service'
@@ -12,7 +12,7 @@ export interface OperatorStatsCommandArguments {
 }
 
 @Injectable()
-export class OperatorStatsCommand extends ClientCommand {
+export class OperatorStatsCommand extends ValkordCommand {
   public command = 'operator'
   public signature = '<username:string> <platform:string> <operator:string>'
   public readonly name = 'Operator Stats'

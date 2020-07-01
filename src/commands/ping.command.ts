@@ -1,8 +1,8 @@
-import { ClientCommand, CommandContext, Injectable } from '@r6stats/valkord'
+import { ValkordCommand, CommandContext, Injectable } from '@r6stats/valkord'
 import { Message } from 'discord.js'
 
 @Injectable()
-export class PingCommand extends ClientCommand {
+export class PingCommand extends ValkordCommand {
   public readonly command = 'ping'
   public readonly name = 'Ping'
   public readonly group = 'Other'
