@@ -1,17 +1,18 @@
 import R6StatsAPI, { GenericStatsResponse, OperatorStatsResponse } from '@r6stats/node'
-import { ConfigService, OnModuleBoot, Injectable } from '@r6stats/valkord'
+import { OnModuleBoot, Injectable } from '@r6stats/valkord'
+import { R6StatsModuleConfig } from '../r6stats.module'
 
 @Injectable()
 export class StatsService implements OnModuleBoot {
-  private readonly config: ConfigService
+  private readonly config: R6StatsModuleConfig
   private client: R6StatsAPI
 
-  public constructor (config: ConfigService) {
+  public constructor (config: R6StatsModuleConfig) {
     this.config = config
   }
 
   public boot (): void {
-    const { r6stats_token: apiKey } = this.config.getConfig()
+    const apiKey = this.config.get('r6stats_token')
 
     const api = new R6StatsAPI({ apiKey })
 

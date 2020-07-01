@@ -2,15 +2,24 @@
   "name": "@r6stats/valkord-r6stats",
   "version": "0.0.1",
   "description": "Public R6Stats Module for Valkord",
-  "main": "src/index.ts",
-  "private": true,
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "url": "https://github.com/R6Stats/valkord-r6stats"
+  },
   "contributors": [
     "Jake <jake@r6stats.com>"
   ],
   "license": "ISC",
   "dependencies": {
     "@r6stats/node": "^3.0.6",
-    "@r6stats/valkord": "file:../valkord"
+    "@r6stats/valkord": "0.0.1"
   },
   "peerDependencies": {
     "discord.js": "^12.2.0"
