@@ -19,7 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@r6stats/node": "^3.0.6",
-    "@r6stats/valkord": "0.0.6"
+    "@r6stats/valkord": "0.0.7"
   },
   "peerDependencies": {
     "discord.js": "^12.2.0"
