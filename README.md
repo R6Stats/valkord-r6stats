@@ -1,5 +1,9 @@
 # valkord-r6stats
 
+[![Discord](https://discordapp.com/api/guilds/293848587391991836/embed.png)](https://discord.gg/pUdraS3)
+[![David](https://img.shields.io/david/r6stats/valkord-r6stats)](https://david-dm.org/r6stats/valkord-discord)
+[![David](https://img.shields.io/david/peer/r6stats/valkord-r6stats)](https://david-dm.org/r6stats/valkord-discord)
+
 An [R6Stats](https://r6stats.com) module for the [Valkord](https://github.com/R6Stats/valkord-discord) framework, adding commands focused on Rainbow Six: Siege stats.
 
 ## Installing
