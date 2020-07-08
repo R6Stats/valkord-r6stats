@@ -31,7 +31,7 @@ export class StatsCommand extends ValkordCommand {
       .name('About')
       .line('Level', player.progression.level)
       .line('Playtime', playtime(player.stats.general.playtime, 'days'))
-      .line('Lootbox Chance', (player.progression.lootbox_probability / 100) + '%')
+      .line('Lootbox Chance', (player.progression.lootbox_probability) + '%')
       .build()
 
     const { kills, deaths, wins, losses, kd, wl } = queue === 'general' ? player.stats.general : player.stats.queue[queue === 'casual' ? 'casual' : 'ranked']
