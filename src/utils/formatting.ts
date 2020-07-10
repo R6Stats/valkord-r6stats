@@ -28,3 +28,8 @@ export const formatNumber = (value: string | number): string => {
 
   return String(value)
 }
+
+export const round = (input: number, places: number = 2): string => {
+  return Number(input).toFixed(places)
+}
+

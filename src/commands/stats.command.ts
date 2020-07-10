@@ -21,10 +21,25 @@ export class StatsCommand extends ValkordCommand {
     this.stats = stats
   }
 
+  private async resolvePlayer (username: string, platform: string) {
+    try {
+      const { data: player } = await this.stats.getStats(username, platform)
+
+      return player
+    } catch (e) {
+      return null
+    }
+  }
+
   public async handle (ctx: CommandContext): Promise<Message | Message[] | void> {
     const { username: { value: username }, platform: { value: platform }, queue: { value: queue = 'general' } = {} } = ctx.signature.get()
 
-    const player = await this.stats.getStats(username, platform)
+    const player = await this.resolvePlayer(username, platform)
+
+    if (!player) {
+      return ctx.reply(`Player '${username}' not found on ${platform}!`)
+    }
+
     const url = `https://r6stats.com/stats/${player.ubisoft_id}`
 
     const about = new EmbedField()
@@ -88,6 +103,6 @@ export class StatsCommand extends ValkordCommand {
       .setFooter('Stats Provided by R6Stats.com', LOGO_URL)
       .addFields([about, killsDeaths, winsLosses, killsBreakdown, miscStats])
 
-    return ctx.reply(embed)
+    return ctx.message.channel.send({ embed })
   }
 }

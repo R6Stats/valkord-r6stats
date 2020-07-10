@@ -27,10 +27,24 @@ export class OperatorStatsCommand extends ValkordCommand {
     this.stats = stats
   }
 
+  private async resolvePlayer (username: string, platform: string) {
+    try {
+      const { data: player } = await this.stats.getOperatorStats(username, platform)
+
+      return player
+    } catch (e) {
+      return null
+    }
+  }
+
   public async handle (ctx: CommandContext): Promise<Message | Message[] | void> {
     const { username: { value: username }, platform: { value: platform }, operator: { value: operatorSearch } } = ctx.signature.get<OperatorStatsCommandArguments>()
 
-    const player = await this.stats.getOperatorStats(username, platform)
+    const player = await this.resolvePlayer(username, platform)
+
+    if (!player) {
+      return ctx.reply(`Player '${username}' not found on ${platform}!`)
+    }
 
     const operator = player.operators.find(f => f.name.toLowerCase() === operatorSearch.toLowerCase())
 
@@ -38,7 +52,7 @@ export class OperatorStatsCommand extends ValkordCommand {
       return ctx.reply(`The operator '${operatorSearch}' was not found.`)
     }
 
-    const url = `https://r6stats.com/stats/${player.ubisoft_id}`
+    const url = `https://r6stats.com/stats/${player.ubisoft_id}/operators`
 
     const { name, role, ctu, abilities: abilityList, kills, deaths, kd, wins, losses, wl, playtime: timePlayed } = operator
 
@@ -68,7 +82,8 @@ export class OperatorStatsCommand extends ValkordCommand {
       .name('Abilities')
 
     for (const ability of abilityList) {
-      builder.line(ability.ability, formatNumber(ability.value))
+      // @ts-ignore
+      builder.line(ability.title, formatNumber(ability.value))
     }
 
     const abilities = builder.build()
@@ -82,6 +97,6 @@ export class OperatorStatsCommand extends ValkordCommand {
       .setFooter('Stats Provided by R6Stats.com', LOGO_URL)
       .addFields([about, killsDeaths, winsLosses, abilities])
 
-    return ctx.reply(embed)
+    return ctx.message.channel.send({ embed })
   }
 }
