@@ -14,7 +14,7 @@ export interface OperatorStatsCommandArguments {
 @Injectable()
 export class OperatorStatsCommand extends ValkordCommand {
   public command = 'operator'
-  public signature = '<username:string> <platform:string> <operator:string>'
+  public signature = '<username> <platform:platform> <operator>'
   public readonly name = 'Operator Stats'
   public readonly group = 'Stats'
   public readonly shortHelp = 'r6s stats <username> <platform> <operator>'

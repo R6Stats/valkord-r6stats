@@ -1,40 +1,12 @@
-export const getGamemode = (gamemode: string): string => {
-  switch (gamemode) {
-    case 'general':
-    case 'overall':
-      gamemode = 'general'
-      break
-    case 'ranked':
-      gamemode = 'ranked'
-      break
-    case 'casual':
-      gamemode = 'casual'
-      break
-    default:
-      gamemode = null
-  }
+export type Resolvable<T> = ResolvableMap<T>[]
 
-  return gamemode
+export interface ResolvableMap<T> {
+  value: T
+  aliases: string[]
 }
 
-export const getRole = (role: string): string => {
-  switch (role) {
-    case 'atk':
-    case 'attacker':
-    case 'attack':
-      role = 'atk'
-      break
-    case 'def':
-    case 'defender':
-    case 'defend':
-    case 'defense':
-      role = 'def'
-      break
-    default:
-      role = null
-  }
-
-  return role
+export const resolve = <T>(input: string, resolvable: Resolvable<T>): T | null => {
+  return resolvable.find(r => r.aliases.includes(input.toLowerCase()))?.value
 }
 
 export const getPlatformImage = (platform: string): string => {

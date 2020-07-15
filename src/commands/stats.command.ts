@@ -1,14 +1,20 @@
-import { ValkordCommand, CommandContext, EmbedField, Injectable } from '@r6stats/valkord'
+import { ValkordCommand, CommandContext, EmbedField, Injectable, CommandSignatureArgumentValue } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
-import { LOGO_URL, PRIMARY_COLOR } from '../constants'
+import { LOGO_URL, PRIMARY_COLOR, Platform, Gamemode } from '../constants'
 import { StatsService } from '../services/stats.service'
 import { formatNumber, playtime } from '../utils/formatting'
 import { getPlatformImage } from '../utils/resolvers'
 
+export interface StatsCommandArguments {
+  username: CommandSignatureArgumentValue<string>
+  platform: CommandSignatureArgumentValue<Platform>
+  queue: CommandSignatureArgumentValue<Gamemode>
+}
+
 @Injectable()
 export class StatsCommand extends ValkordCommand {
   public command = 'stats'
-  public signature = '<username:string> <platform:string> {queue:string}'
+  public signature = '<username> <platform:platform> {queue:gamemode}'
   public readonly name = 'Core Stats'
   public readonly group = 'Stats'
   public readonly shortHelp = 'r6s stats <username> <platform> {queue}'
@@ -32,7 +38,7 @@ export class StatsCommand extends ValkordCommand {
   }
 
   public async handle (ctx: CommandContext): Promise<Message | Message[] | void> {
-    const { username: { value: username }, platform: { value: platform }, queue: { value: queue = 'general' } = {} } = ctx.signature.get()
+    const { username: { value: username }, platform: { value: platform }, queue: { value: queue = 'general' } = {} } = ctx.signature.get<StatsCommandArguments>()
 
     const player = await this.resolvePlayer(username, platform)
 

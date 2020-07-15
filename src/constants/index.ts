@@ -1,3 +1,10 @@
+export * from './resolvables'
+
+export type Platform = 'pc' | 'xbox' | 'ps4'
+export type Region = 'ncsa' | 'apac' | 'emea'
+export type Gamemode = 'general' | 'ranked' | 'casual'
+export type OperatorRole = 'def' | 'atk' | 'recruit'
+
 export const LOGO_URL = 'https://cdn.r6stats.com/logos/r6stats-roundal.png'
 
 // send message

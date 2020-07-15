@@ -1,10 +1,10 @@
-import { Injectable, ValkordCommand, CommandContext, CommandSignatureArgumentValue, EmbedField } from '@r6stats/valkord'
+import { SeasonalStat, SeasonalStatsResponse, SeasonRegionStat } from '@r6stats/node'
+import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
+import { LOGO_URL, REACT_AMERICA, REACT_ASIA, REACT_BACK, REACT_EUROPE, REACT_FORWARD } from '../constants'
 import { StatsService } from '../services/stats.service'
-import { SeasonalStatsResponse, SeasonalStat, SeasonRegionStat } from '@r6stats/node'
 import { formatNumber, round } from '../utils/formatting'
 import { getPlatformImage } from '../utils/resolvers'
-import { LOGO_URL, REACT_FORWARD, REACT_BACK, REACT_ASIA, REACT_AMERICA, REACT_EUROPE } from '../constants'
 
 export interface RankCommandArguments {
   username: CommandSignatureArgumentValue<string>
@@ -16,7 +16,7 @@ export interface RankCommandArguments {
 export class RankCommand extends ValkordCommand {
   public command = 'rank'
   public aliases = ['season']
-  public signature = '<username> <platform> {season}'
+  public signature = '<username> <platform:platform> {season}'
 
   private readonly stats: StatsService
 
