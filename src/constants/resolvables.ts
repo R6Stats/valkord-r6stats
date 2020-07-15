@@ -1,5 +1,5 @@
-import { Resolvable } from '../utils/resolvers'
 import { Gamemode, OperatorRole, Platform, Region } from '.'
+import { Resolvable } from '../utils/resolvers'
 
 export const OPERATOR_ROLE_MAP: Resolvable<OperatorRole> = [
   {
@@ -18,7 +18,7 @@ export const OPERATOR_ROLE_MAP: Resolvable<OperatorRole> = [
 
 export const GAMEMODE_MAP: Resolvable<Gamemode> = [
   {
-    value: 'overall',
+    value: 'general',
     aliases: ['overall', 'general'],
   },
   {

@@ -1,4 +1,4 @@
-import { ValkordConfig, env, Injectable } from '@r6stats/valkord'
+import { env, Injectable, ValkordConfig } from '@r6stats/valkord'
 
 @Injectable()
 export class R6StatsModuleConfig extends ValkordConfig<R6StatsModuleConfigOptions> {

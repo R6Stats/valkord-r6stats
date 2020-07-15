@@ -1,7 +1,8 @@
-import { ValkordCommand, ValkordModule, Constructor } from '@r6stats/valkord'
+import { Constructor, ValkordCommand, ValkordModule, CommandSignatureArgumentType } from '@r6stats/valkord'
 import { HelpCommand, InviteCommand, OperatorStatsCommand, PingCommand, StatsCommand } from './commands'
-import { R6StatsModuleConfig } from './r6stats.module-config'
 import { RankCommand } from './commands/rank.command'
+import { R6StatsModuleConfig } from './r6stats.module-config'
+import { CommandSignatureArgumentTypePlatform, CommandSignatureArgumentTypeGamemode } from './commands/argument-types'
 
 export class R6StatsModule extends ValkordModule<R6StatsModuleConfig> {
   public getName = (): string => 'R6Stats'
@@ -15,5 +16,10 @@ export class R6StatsModule extends ValkordModule<R6StatsModuleConfig> {
     StatsCommand,
     RankCommand,
     OperatorStatsCommand,
+  ]
+
+  public getArgumentTypes = (): Constructor<CommandSignatureArgumentType>[] => [
+    CommandSignatureArgumentTypePlatform,
+    CommandSignatureArgumentTypeGamemode,
   ]
 }

@@ -1,4 +1,4 @@
-import { ValkordCommand, CommandContext, Injectable } from '@r6stats/valkord'
+import { CommandContext, Injectable, ValkordCommand } from '@r6stats/valkord'
 import { Message } from 'discord.js'
 
 @Injectable()

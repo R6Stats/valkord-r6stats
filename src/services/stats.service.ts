@@ -1,7 +1,7 @@
-import R6StatsAPI, { GenericStatsResponse, OperatorStatsResponse, SeasonalStatsResponse, APIResponse } from '@r6stats/node'
-import { OnModuleBoot, Injectable } from '@r6stats/valkord'
-import { R6StatsModuleConfig } from '../r6stats.module-config'
+import R6StatsAPI, { APIResponse, GenericStatsResponse, OperatorStatsResponse, SeasonalStatsResponse } from '@r6stats/node'
 import { Platform } from '@r6stats/node/lib/types/stats/meta.type'
+import { Injectable, OnModuleBoot } from '@r6stats/valkord'
+import { R6StatsModuleConfig } from '../r6stats.module-config'
 
 @Injectable()
 export class StatsService implements OnModuleBoot {

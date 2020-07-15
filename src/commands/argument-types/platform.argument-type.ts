@@ -1,6 +1,6 @@
-import { CommandSignatureArgumentType, CommandSignatureArgumentValue, CommandSignatureArgument } from '@r6stats/valkord'
-import { resolve } from '../../utils/resolvers'
+import { CommandSignatureArgument, CommandSignatureArgumentType, CommandSignatureArgumentValue } from '@r6stats/valkord'
 import { PLATFORM_MAP } from '../../constants'
+import { resolve } from '../../utils/resolvers'
 
 export class CommandSignatureArgumentTypePlatform extends CommandSignatureArgumentType {
   protected readonly key: string = 'platform'

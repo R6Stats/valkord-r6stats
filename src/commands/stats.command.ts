@@ -1,6 +1,6 @@
-import { ValkordCommand, CommandContext, EmbedField, Injectable, CommandSignatureArgumentValue } from '@r6stats/valkord'
+import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
-import { LOGO_URL, PRIMARY_COLOR, Platform, Gamemode } from '../constants'
+import { Gamemode, LOGO_URL, Platform, PRIMARY_COLOR } from '../constants'
 import { StatsService } from '../services/stats.service'
 import { formatNumber, playtime } from '../utils/formatting'
 import { getPlatformImage } from '../utils/resolvers'

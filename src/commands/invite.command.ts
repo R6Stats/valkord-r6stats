@@ -1,4 +1,4 @@
-import { ValkordCommand, CommandContext, Injectable } from '@r6stats/valkord'
+import { CommandContext, Injectable, ValkordCommand } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
 import { INVITE_URL, LOGO_URL, PRIMARY_COLOR } from '../constants'
 
