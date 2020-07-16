@@ -1,6 +1,6 @@
 {
   "name": "@r6stats/valkord-r6stats",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Public R6Stats Module for Valkord",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
