@@ -2,7 +2,7 @@ import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, 
 import { Message, MessageEmbed } from 'discord.js'
 import { Gamemode, LOGO_URL, Platform, PRIMARY_COLOR } from '../constants'
 import { StatsService } from '../services/stats.service'
-import { formatNumber, playtime } from '../utils/formatting'
+import { formatNumber, playtime, round } from '../utils/formatting'
 import { getPlatformImage } from '../utils/resolvers'
 
 export interface StatsCommandArguments {
@@ -52,7 +52,7 @@ export class StatsCommand extends ValkordCommand {
       .name('About')
       .line('Level', player.progression.level)
       .line('Playtime', playtime(player.stats.general.playtime, 'days'))
-      .line('Lootbox Chance', (player.progression.lootbox_probability) + '%')
+      .line('Alpha Pack Chance', round(player.progression.lootbox_probability / 100) + '%')
       .build()
 
     const { kills, deaths, wins, losses, kd, wl } = queue === 'general' ? player.stats.general : player.stats.queue[queue === 'casual' ? 'casual' : 'ranked']
