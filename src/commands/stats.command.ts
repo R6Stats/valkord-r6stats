@@ -87,7 +87,6 @@ export class StatsCommand extends ValkordCommand {
       .line('Blind Kills', formatNumber(blind_kills))
       .line('Melee Kills', formatNumber(melee_kills))
       .line('Penetration Kills', formatNumber(penetration_kills))
-      .line('W/L', wl)
       .build()
 
     const miscStats = new EmbedField()
