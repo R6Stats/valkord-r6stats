@@ -1,10 +1,11 @@
 import { SeasonalStat, SeasonalStatsResponse, SeasonRegionStat } from '@r6stats/node'
-import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand } from '@r6stats/valkord'
+import { CommandContext, MiddlewareContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
-import { LOGO_URL, REACT_AMERICA, REACT_ASIA, REACT_BACK, REACT_EUROPE, REACT_FORWARD } from '../constants'
+import { LOGO_URL, REACT_AMERICA, REACT_ASIA, REACT_BACK, REACT_EUROPE, REACT_FORWARD, PRIMARY_COLOR } from '../constants'
 import { StatsService } from '../services/stats.service'
-import { formatNumber, round } from '../utils/formatting'
+import { formatNumber, round, dedent } from '../utils/formatting'
 import { getPlatformImage } from '../utils/resolvers'
+import { ClientException } from '@r6stats/valkord/dist/exceptions/client.exception'
 
 export interface RankCommandArguments {
   username: CommandSignatureArgumentValue<string>
@@ -17,6 +18,7 @@ export class RankCommand extends ValkordCommand {
   public command = 'rank'
   public aliases = ['season']
   public signature = '<username> <platform:platform> {season}'
+  public readonly shortHelp = 'r6s rank <username> <platform> {season}'
 
   private readonly stats: StatsService
 
@@ -81,9 +83,9 @@ export class RankCommand extends ValkordCommand {
     const player = await this.getStats(username, platform)
 
     if (!player) {
-      return ctx.reply(`Player '${username}' not found on ${platform}!`)
+      return ctx.reply(`we couldn't find a player with the username '${username}' on ${platform}!`)
     } else if (player.seasons.length === 0) {
-      return ctx.reply(`No seasonal stats found for ${username}!`)
+      return ctx.reply(`we couldn't find seasonal stats for ${username}!`)
     }
 
     const canManage = this.hasManagePermission(ctx.message)
@@ -112,7 +114,7 @@ export class RankCommand extends ValkordCommand {
 
     const embed = embeds.get(first)
 
-    const msg = await ctx.message.channel.send({ embed })
+    const msg = await ctx.reply(embed)
 
     const emojis = this.getEmojisForSeason(embeds, first)
     const hasNextSeason = this.hasNextSeason(currentSeason, player.seasons)
@@ -122,6 +124,27 @@ export class RankCommand extends ValkordCommand {
     await this.react(msg, ...reacts)
 
     await this.createcollector(msg, ctx.message, currentSeason, player, mappedSeasons, canManage)
+  }
+
+  public help (ctx: MiddlewareContext, ex: ClientException): Promise<void | Message | Message[]> {
+    const embed = new MessageEmbed()
+      .setColor(PRIMARY_COLOR)
+      .setDescription(dedent`
+        **Find a Player's Seasonal Stats**
+        \`\`\`r6s rank <username> <platform> {season}\`\`\`
+        **username**: player username, use quotes around names with spaces
+        **platform**: pc, xbox or ps4
+        **season**: the number of the season (optional)
+
+        \n**Examples:**
+        \`\`\`
+        r6s rank KingGeorge pc
+        r6s rank MacieJay pc 15
+        \`\`\`
+      `)
+      .setFooter('Stats Provided by R6Stats.com', LOGO_URL)
+
+    return ctx.reply(embed)
   }
 
   private async createcollector (message: Message, original: Message, currentSeason: number, player: SeasonalStatsResponse, seasons: Map<number, Map<string, MessageEmbed>>, canManage: boolean, ) {

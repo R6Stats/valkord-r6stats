@@ -1,9 +1,10 @@
-import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand } from '@r6stats/valkord'
+import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand, MiddlewareContext } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
 import { Gamemode, LOGO_URL, Platform, PRIMARY_COLOR } from '../constants'
 import { StatsService } from '../services/stats.service'
-import { formatNumber, playtime, round } from '../utils/formatting'
+import { formatNumber, playtime, round, dedent } from '../utils/formatting'
 import { getPlatformImage } from '../utils/resolvers'
+import { ClientException } from '@r6stats/valkord/dist/exceptions/client.exception'
 
 export interface StatsCommandArguments {
   username: CommandSignatureArgumentValue<string>
@@ -43,7 +44,7 @@ export class StatsCommand extends ValkordCommand {
     const player = await this.resolvePlayer(username, platform)
 
     if (!player) {
-      return ctx.reply(`Player '${username}' not found on ${platform}!`)
+      return ctx.reply(`we couldn't find a player with the username '${username}' on ${platform}!`)
     }
 
     const url = `https://r6stats.com/stats/${player.ubisoft_id}`
@@ -108,6 +109,27 @@ export class StatsCommand extends ValkordCommand {
       .setFooter('Stats Provided by R6Stats.com', LOGO_URL)
       .addFields([about, killsDeaths, winsLosses, killsBreakdown, miscStats])
 
-    return ctx.message.channel.send({ embed })
+    return ctx.reply(embed)
+  }
+
+  public help (ctx: MiddlewareContext, ex: ClientException): Promise<void | Message | Message[]> {
+    const embed = new MessageEmbed()
+      .setColor(PRIMARY_COLOR)
+      .setDescription(dedent`
+        **Find a Player's Stats**
+        \`\`\`r6s stats <username> <platform> {queue}\`\`\`
+        **username**: player username, use quotes around names with spaces
+        **platform**: pc, xbox or ps4
+        **queue**: casual, ranked or general (default)
+
+        \n**Examples:**
+        \`\`\`
+        r6s stats KingGeorge pc
+        r6s stats MacieJay pc ranked
+        \`\`\`
+      `)
+      .setFooter('Stats Provided by R6Stats.com', LOGO_URL)
+
+    return ctx.reply(embed)
   }
 }

@@ -9,6 +9,6 @@ export class PingCommand extends ValkordCommand {
   public readonly shortHelp = 'r6s ping'
 
   public async handle (ctx: CommandContext): Promise<Message | Message[] | void> {
-    return ctx.reply('Pong!')
+    return ctx.reply('pong!')
   }
 }

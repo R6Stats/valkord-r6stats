@@ -1,8 +1,8 @@
-import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand } from '@r6stats/valkord'
+import { CommandContext, CommandSignatureArgumentValue, EmbedField, Injectable, ValkordCommand, MiddlewareContext, ClientException } from '@r6stats/valkord'
 import { Message, MessageEmbed } from 'discord.js'
 import { LOGO_URL, PRIMARY_COLOR } from '../constants'
 import { StatsService } from '../services/stats.service'
-import { formatNumber, playtime } from '../utils/formatting'
+import { formatNumber, playtime, dedent } from '../utils/formatting'
 import { getPlatformImage } from '../utils/resolvers'
 
 export interface OperatorStatsCommandArguments {
@@ -43,13 +43,13 @@ export class OperatorStatsCommand extends ValkordCommand {
     const player = await this.resolvePlayer(username, platform)
 
     if (!player) {
-      return ctx.reply(`Player '${username}' not found on ${platform}!`)
+      return ctx.reply(`we couldn't find a player with the username '${username}' on ${platform}!`)
     }
 
     const operator = player.operators.find(f => f.name.toLowerCase() === operatorSearch.toLowerCase())
 
     if (!operator) {
-      return ctx.reply(`The operator '${operatorSearch}' was not found.`)
+      return ctx.reply(`we couldn't find '${operatorSearch}' for ${username}.`)
     }
 
     const url = `https://r6stats.com/stats/${player.ubisoft_id}/operators`
@@ -97,6 +97,31 @@ export class OperatorStatsCommand extends ValkordCommand {
       .setFooter('Stats Provided by R6Stats.com', LOGO_URL)
       .addFields([about, killsDeaths, winsLosses, abilities])
 
-    return ctx.message.channel.send({ embed })
+    return ctx.reply(embed)
+  }
+
+  public help (ctx: MiddlewareContext, ex: ClientException): Promise<void | Message | Message[]> {
+    const embed = new MessageEmbed()
+      .setColor(PRIMARY_COLOR)
+      .setDescription(dedent`
+        **Find a Player's Operator Stats**
+        \`\`\`r6s operator <username> <platform> <operator>\`\`\`
+        **username**: player username, use quotes around names with spaces
+        **platform**: pc, xbox or ps4
+        **operator**: the name of the operator
+
+        \n**Examples:**
+        \`\`\`
+        r6s operator KingGeorge pc Ela
+        r6s operator MacieJay pc Lion
+        \`\`\`
+      `)
+      .setFooter('Stats Provided by R6Stats.com', LOGO_URL)
+
+    // if (ex instanceof MissingArgumentException) {
+    //   return ctx.reply({ embed, content: `specify the ${ex.argument}!` })
+    // }
+
+    return ctx.reply({ embed })
   }
 }
