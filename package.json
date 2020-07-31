@@ -1,6 +1,6 @@
 {
   "name": "@r6stats/valkord-r6stats",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Public R6Stats Module for Valkord",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,12 +20,12 @@
   "license": "ISC",
   "dependencies": {
     "@r6stats/node": "^4.0.0-alpha2",
-    "@r6stats/valkord": "0.0.12",
+    "@r6stats/valkord": "0.0.13",
     "discord.js": "^12.2.0"
   },
   "peerDependencies": {
     "discord.js": "^12.2.0",
-    "@r6stats/valkord": "^0.0.12"
+    "@r6stats/valkord": "^0.0.13"
   },
   "devDependencies": {
     "@types/node": "^14.0.19",
