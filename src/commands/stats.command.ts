@@ -56,7 +56,7 @@ export class StatsCommand extends ValkordCommand {
       .line('Alpha Pack Chance', round(player.progression.lootbox_probability / 100) + '%')
       .build()
 
-    const { kills, deaths, wins, losses, kd, wl } = queue === 'general' ? player.stats.general : player.stats.queue[queue === 'casual' ? 'casual' : 'ranked']
+    const { kills, deaths, wins, losses, kd, wl } = queue === 'ranked' ? player.stats.queue['ranked'] : queue === 'casual' ? player.stats.queue['casual'] : player.stats.general
 
     const {
       assists, headshots, revives,
